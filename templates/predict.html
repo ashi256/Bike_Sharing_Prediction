@@ -1,0 +1,133 @@
+{% extends 'header.html' %}
+
+{% block head %}
+
+
+<title>Sharing Count Estimator</title>
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-6 col-sm-12 col-xs-6 col-lg-6">
+
+
+        <form action="/predict" method="post">
+            <legend>Sharing Estimation Form</legend>
+            <div class="mb-3">
+                <label class="form-label">season</label>
+                <input class="form-control" type="text" name="season"
+                    placeholder="Enter a value of season" />
+
+            </div>
+            <div class="mb-3">
+                <label class="form-label">year</label>
+                <input class="form-control" type="text" name="yr" placeholder="Enter a value of yr"
+                    required />
+
+            </div>
+            <div class="mb-3">
+                <label class="form-label">month</label>
+                <input class="form-control" type="text" name="mnth"
+                    placeholder="Enter a value of mnth" required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">hour</label>
+                <input class="form-control" type="text" name="hr" placeholder="Enter a value of hr"
+                    required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">holiday</label>
+                <input class="form-control" type="text" name="holiday" placeholder="Enter a value of holiday"
+                    required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">weekday</label>
+                <input class="form-control" type="text" name="weekday"
+                    placeholder="Enter a value of weekday" required />
+            </div>
+
+
+            <div class="mb-3">
+                <label class="form-label">weather sit</label>
+                <input class="form-control" name="weathersit" placeholder="Enter a value of weathersit"
+                    required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">temperature</label>
+                <input class="form-control" name="temp" placeholder="Enter a value of temp"
+                    required>
+
+            </div>
+          
+           <div class="mb-3">
+              <label class="form-label">wind speed</label>
+               <input class="form-control" name="windspeed" placeholder="Enter a value of windspeed"
+                required>
+           </div>           
+    
+           <div class="mb-3">
+               <label class="form-label">casual</label>
+                <input class="form-control" name="casual" placeholder="Enter a value of casual"
+                required>
+           </div>  
+           <div class="mb-3">
+                <label class="form-label">registered</label>
+                <input class="form-control" name="registered" placeholder="Enter a value of registered"
+                required>
+           </div>   
+
+                <input class="btn btn-primary" type="submit" value="Predict Bike Sharing Value" required />
+            </div>
+
+        </form>
+    </div>
+
+    <div class="col-md-6 col-sm-12 col-xs-6 col-lg-6">
+        <div class="card">
+            <div class="card-header">
+              Bike Sharing count
+            </div>
+            <div class="card-body">
+        {% if context['sharing_data'] is not none %}
+        <table class="table table-striped">
+            <caption>Bike Sharing Prediction </caption>
+            <tr>
+                <th>Input Feature</th>
+                <th>Feature Value</th>
+
+            </tr>
+            {% for column,value in context['sharing_data'].items() %}
+
+
+
+            <tr>
+                <td>{{column}}</td>
+                <td>{{value[0]}}</td>
+            </tr>
+
+            {% endfor %}
+            <tr>
+
+                <td>count </td>
+                <td>
+                    {{ context['cnt'] }}
+                </td>
+            </tr>
+        </table>
+
+        {% else %}
+       
+              <h5 class="card-title">Submit Form</h5>
+              <p class="card-text">Kindly provide necessary information to estimate sharing count</p>
+            
+         
+
+        {% endif %}
+        Go to <a href="/" class="btn btn-primary">Home</a>
+    </div>
+</div>
+    </div>
+
+    {% endblock %}
